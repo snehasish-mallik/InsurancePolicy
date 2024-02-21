@@ -1,0 +1,92 @@
+﻿@model InsurancePolicy.Models.Policy
+
+@{
+    ViewData["Title"] = "EditPolicy";
+}
+
+<h1>EditPolicy</h1>
+
+<h4>Policy</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditPolicy">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PolicyId" />
+
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label">User ID:</label>
+                <input asp-for="UserId" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PolicyType" class="control-label">Policy Type:</label>
+                <div class="input-group">
+                    <select asp-for="PolicyType" class="form-control">
+                        <option value="" disabled>Select Policy Type ▼</option>
+                        <option value="Premium" selected="@(Model.PolicyType == "Premium")">Premium</option>
+                        <option value="Basic" selected="@(Model.PolicyType == "Basic")">Basic</option>
+                    </select>
+                </div>
+                <span asp-validation-for="PolicyType" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PolicyName" class="control-label">Policy Name:</label>
+                <div class="input-group">
+                    <select asp-for="PolicyName" class="form-control" onchange="toggleFields(this)">
+                        <option value="" disabled>Select Policy Name ▼</option>
+                        <option value="Home" selected="@(Model.PolicyName == "Home")">Home</option>
+                        <option value="Motor" selected="@(Model.PolicyName == "Motor")">Motor</option>
+                    </select>
+                </div>
+                <span asp-validation-for="PolicyName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group" id="vehicleField">
+                <label asp-for="VehicleRegistrationNum" class="control-label">Vehicle Registration Number:</label>
+                <input asp-for="VehicleRegistrationNum" class="form-control" />
+                <span asp-validation-for="VehicleRegistrationNum" class="text-danger"></span>
+            </div>
+
+            <div class="form-group" id="pincodeField">
+                <label asp-for="Pincode" class="control-label">Pincode:</label>
+                <input asp-for="Pincode" class="form-control" />
+                <span asp-validation-for="Pincode" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PolicyAmount" class="control-label">Policy Amount:</label>
+                <input asp-for="PolicyAmount" class="form-control" />
+                <span asp-validation-for="PolicyAmount" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="PolicyList">Back to List</a>
+</div>
+
+<script>
+    function toggleFields(policyNameSelect) {
+        var vehicleField = document.getElementById('vehicleField');
+        var pincodeField = document.getElementById('pincodeField');
+
+        if (policyNameSelect.value === 'Home') {
+            vehicleField.style.display = 'none';
+            pincodeField.style.display = 'block';
+        } else if (policyNameSelect.value === 'Motor') {
+            vehicleField.style.display = 'block';
+            pincodeField.style.display = 'none';
+        } else {
+            // For other options, show both fields
+            vehicleField.style.display = 'block';
+            pincodeField.style.display = 'block';
+        }
+    }
+</script>

@@ -1,0 +1,32 @@
+﻿@model InsurancePolicy.Models.Admin
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1>Dashboard</h1>
+
+<div>
+    <h4>Admin</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a href="@Url.Action("PolicyList", "Admin")">View All Policies</a> |
+    <a href="@Url.Action("ClaimList", "Admin")">View All Claims</a> |
+    <a href="@Url.Action("Logout", "Admin")">Log Out</a>
+</div>

@@ -1,0 +1,70 @@
+﻿@model InsurancePolicy.Models.Claim
+
+<h2>Submit a Claim</h2>
+
+<form asp-action="CreateClaim" method="post">
+    <div class="form-group">
+        <label for="Date">Date:</label>
+        <input type="datetime-local" id="Date" name="Date" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label for="Reason">Reason:</label>
+        <select id="Reason" name="Reason" class="form-control" onchange="handleReasonChange(this)">
+            <option value="">Select One</option>
+            <option value="Accident">Damage due to accident</option>
+            <option value="NaturalDisaster">Damage due to Rains/Natural disasters</option>
+            <option value="Theft">Theft</option>
+            <option value="Other">Other</option>
+        </select>
+        <div id="otherReasonContainer" style="display: none;">
+            <label for="OtherReason">Enter Other Reason:</label>
+            <input type="text" id="OtherReason" name="OtherReason" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Status">Status:</label>
+        <!-- Hidden input for the Status property -->
+        <input type="hidden" id="Status" name="Status" value="Creating" />
+        <!-- Readonly textbox to display the Status -->
+        <input type="text" id="StatusDisplay" name="StatusDisplay" class="form-control" value="Creating" readonly />
+    </div>
+
+    <div class="form-group">
+        <label for="PolicyId">Select Policy:</label>
+        <select id="PolicyId" name="PolicyId" class="form-control">
+            <option value="">Select One</option>
+            @if (ViewBag.UserPolicies != null)
+            {
+                foreach (var policy in ViewBag.UserPolicies)
+                {
+                                    <option value="@policy.PolicyId">@policy.PolicyId - @policy.PolicyName - @policy.PolicyType</option>
+                }
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Claim</button>
+
+    <!-- JavaScript code to set the default value of the date input field to the current date and time -->
+    <script>
+        var currentDate = new Date();
+        var formattedDate = currentDate.toISOString().slice(0, 16);
+        document.getElementById("Date").value = formattedDate;
+    </script>
+
+    <script>
+        function handleReasonChange(selectElement) {
+            var otherReasonContainer = document.getElementById('otherReasonContainer');
+            var otherReasonInput = document.getElementById('OtherReason');
+
+            if (selectElement.value === 'Other') {
+                otherReasonContainer.style.display = 'block';
+                otherReasonInput.required = true;
+            } else {
+                otherReasonContainer.style.display = 'none';
+                otherReasonInput.required = false;
+            }
+        }
+    </script>
+</form>

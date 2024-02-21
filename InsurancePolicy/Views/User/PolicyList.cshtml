@@ -1,0 +1,120 @@
+﻿@model IEnumerable<InsurancePolicy.Models.Policy>
+
+@{
+    ViewData["Title"] = "PolicyList";
+}
+
+<h1>PolicyList</h1>
+
+<p>
+    <a asp-action="CreatePolicy">Create New</a>
+</p>
+
+@if (Model.Any())
+{
+        <h2>Motor Policies</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                        <th>
+                    @Html.DisplayNameFor(model => model.PolicyId)
+                        </th>
+                    <th>
+                    @Html.DisplayNameFor(model => model.PolicyName)
+                    </th>
+                    <th>
+                    @Html.DisplayNameFor(model => model.PolicyType)
+                    </th>
+                    <th>
+                    @Html.DisplayNameFor(model => model.VehicleRegistrationNum)
+                    </th>
+                    <th>
+                    @Html.DisplayNameFor(model => model.PolicyAmount)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.Where(policy => policy.PolicyName == "Motor"))
+            {
+                        <tr>
+                                    <td>
+                        @Html.DisplayFor(modelItem => item.PolicyId)
+                                    </td>
+                            <td>
+                        @Html.DisplayFor(modelItem => item.PolicyName)
+                            </td>
+                            <td>
+                        @Html.DisplayFor(modelItem => item.PolicyType)
+                            </td>
+                            <td>
+                        @Html.DisplayFor(modelItem => item.VehicleRegistrationNum)
+                            </td>
+                            <td>
+                        @Html.DisplayFor(modelItem => item.PolicyAmount)
+                            </td>
+                            <td>
+                                <!-- Additional actions or details for Motor policies --> 
+                                <a href="@Url.Action("EditPolicy","User", new {PolicyId= item.PolicyId})">Edit</a> |
+
+                            </td>
+                        </tr>
+            }
+            </tbody>
+        </table>
+
+        <h2>Home Policies</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                        <th>
+                    @Html.DisplayNameFor(model => model.PolicyId)
+                        </th>
+                    <th>
+                    @Html.DisplayNameFor(model => model.PolicyName)
+                    </th>
+                    <th>
+                    @Html.DisplayNameFor(model => model.PolicyType)
+                    </th>
+                    <th>
+                    @Html.DisplayNameFor(model => model.Pincode)
+                    </th>
+                    <th>
+                    @Html.DisplayNameFor(model => model.PolicyAmount)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.Where(policy => policy.PolicyName == "Home"))
+            {
+                        <tr>
+                             <td>
+
+                        @Html.DisplayFor(modelItem => item.PolicyId)
+                             </td>
+                            <td>
+                        @Html.DisplayFor(modelItem => item.PolicyName)
+                            </td>
+                            <td>
+                        @Html.DisplayFor(modelItem => item.PolicyType)
+                            </td>
+                            <td>
+                        @Html.DisplayFor(modelItem => item.Pincode)
+                            </td>
+                            <td>
+                        @Html.DisplayFor(modelItem => item.PolicyAmount)
+                            </td>
+                            <td>
+                                <!-- Additional actions or details for Home policies -->
+                                <a href="@Url.Action("EditPolicy","User", new {PolicyId= item.PolicyId})">Edit</a> |
+                            </td>
+                        </tr>
+            }
+            </tbody>
+        </table>
+}
+else
+{
+        <p>No policies available.</p>
+}

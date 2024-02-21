@@ -1,0 +1,58 @@
+﻿@model InsurancePolicy.Models.Claim
+
+@{
+    ViewData["Title"] = "EditClaim";
+}
+
+<h1>Change Claim Status</h1>
+
+<h4>Claim Details</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditClaim">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ClaimId" />
+
+            
+
+            <!-- Display Claim Information -->
+            <div class="form-group">
+                <label asp-for="Date" class="control-label">Claim Date:</label>
+                <input asp-for="Date" class="form-control" readonly />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reason" class="control-label">Claim Reason:</label>
+                <input asp-for="Reason" class="form-control" readonly />
+                <span asp-validation-for="Reason" class="text-danger"></span>
+            </div>
+
+            <!-- Display Policy Information -->
+            <div class="form-group">
+                <label asp-for="PolicyId" class="control-label">Policy ID:</label>
+                <input asp-for="PolicyId" class="form-control" readonly />
+                <span asp-validation-for="PolicyId" class="text-danger"></span>
+            </div>
+
+            <!-- Display and Edit Status with Dropdown -->
+            <div class="form-group">
+                <label asp-for="Status" class="control-label">Status:</label>
+                <select asp-for="Status" class="form-control">
+                    <option value="">Select One</option>
+                    <option value="Accepted">Accept</option>
+                    <option value="Rejected">Reject</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
